@@ -1,10 +1,12 @@
 </main>
 <footer class="footer">
-  <span>&copy; {{ now.Year }} <a href="{{ "" | absURL }}">{{ .Site.Title }}</a></span>
+  <span>&copy; {{ now.Year }} <a href="{{ "" | absURL }}">{{ .Site.Params.siteAuthor }}</a></span>
   <span>&middot;</span>
-  <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️</span>
-  <span>&middot;</span>
-  <span>Theme️ <a href="https://github.com/nanxiaobei/hugo-paper" rel="noopener" target="_blank">Paper</a></span>
+  <span>Powered by <a href="https://gohugo.io/" rel="noopener" target="_blank">Hugo️️</a>️ and <a href="https://github.com/mmshivesh/hugo-paper-plus" rel="noopener" target="_blank">Paper+ Theme</a></span>
+  {{ if .Site.Params.email }}
+    <span>&middot;</span>
+    <span><a href="mailto:{{ .Site.Params.email }}">Contact Me</a></span>
+  {{ end }}
 </footer>
 <script src="{{ "highlight.min.js" | absURL }}"></script>
 <script>

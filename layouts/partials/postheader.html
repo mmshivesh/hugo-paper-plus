@@ -37,46 +37,71 @@
       function setTheme() {
           if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.body.classList.add('dark');
+            document.getElementsByClassName("header-image")[0].classList.remove("bg2");
+            
           }
         }
-      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
         if (event.matches) {
           document.body.classList.add('dark');
+          document.getElementsByClassName("header-image")[0].classList.remove("bg2");
         } else {
           //light mode
-          document.body.classList.remove('dark')
+          document.body.classList.remove('dark');
+          document.getElementsByClassName("header-image")[0].classList.add("bg2");
         }
       })
-
-    
-
     </script>
   </head>
   <body class="{{ if eq .Kind `page` }}single{{ else }}list{{ if .IsHome }} home{{ end }}{{ end }}">
     <script>
       setTheme();
     </script>
-    <header class="header">
-      <nav class="nav">
-        {{- if .IsHome }}
-        <h1 class="logo"><a href="{{ "" | absURL }}">{{ .Site.Title }}</a></h1>
-        {{- else }}
-        <p class="logo"><a href="{{ "" | absURL }}">{{ .Site.Title }}</a></p>
-        {{- end }}
-        {{- if .Site.Menus.main }}
-        <ul class="menu">
-          {{ if .Site.Params.github }}
+    {{ if .Params.header }}
+    <div class="header-image" style="background-image: url('{{ with .Params.header }}{{ . }}{{ end }}');">
+      {{end}}
+      <header class="header">
+        <nav class="nav">
+          {{- if .IsHome }}
+          <h1 class="logo"><a href="{{ "" | absURL }}">{{ .Site.Title }}</a></h1>
+          {{- else }}
+          <p class="logo"><a href="{{ "" | absURL }}">{{ .Site.Title }}</a></p>
+          {{- end }}
+          {{- if .Site.Menus.main }}
+          <ul class="menu">
+            {{ if .Site.Params.github }}
             <li class="fade-hover">
               <a href="{{ .Site.Params.github }}" target="_blank">Github</a>
             </li>
-          {{ end }}
-          {{- range .Site.Menus.main }}
-          <li class="fade-hover">
-            <a href="{{ .URL }}">{{ .Name }}</a>
-          </li>
+            {{ end }}
+            {{- range .Site.Menus.main }}
+            <li class="fade-hover">
+              <a href="{{ .URL }}">{{ .Name }}</a>
+            </li>
+            {{- end }}
+          </ul>
           {{- end }}
-        </ul>
-        {{- end }}
-      </nav>
-    </header>
+          
+        </nav>
+      </header>
+    </div>
+      <header class="post-header main-fix-footer">
+        <h1 class="post-title {{ if .Site.Params.serifTitles }} serif-font {{ end }}">{{ .Title }}</h1>
+        <div class="post-meta">
+          {{- if or .Params.author .Site.Params.author }}
+          {{- .Params.author | default .Site.Params.author }} · {{ end }}
+          {{ if .Params.showDate }}
+            {{- .Date.Format "January 2, 2006" -}}
+            <span> &middot;</span>
+            {{ $readTime := mul (div (countwords .Content) 220.0) 60 }}
+            {{ $minutes := math.Floor (div $readTime 60) }}
+            {{ if (gt $minutes 0) }}
+              <span>{{ $minutes }} Minute Read</span>
+            {{ else }}
+              <span>A Quick Read</span>
+            {{ end }}
+          {{ end }}
+        </div>
+      </header>
+    <!-- </div>   -->
     <main class="main">

@@ -1,13 +1,26 @@
 /*
- * Paper
+ * Paper Plus
+ * A Fork of the Paper theme that builds on the original Paper with lots of new features.
+ * https://github.com/mmshivesh/hugo-paper-plus/
+ *
+ * Built on Paper
  * A simple, clean, flexible Hugo theme
  * https://github.com/nanxiaobei/hugo-paper
  * Designed by MR.LEE (https://mrlee.me/)
  * Updated in 2020.6.12
  */
 
-/* Theme
+ /* Serif Font
 -------------------------------------------------- */
+@font-face { font-family: Playfair; src: url('/fonts/PlayfairDisplay-Bold.ttf'); } 
+
+.serif-font {
+  font-family: Playfair;
+}
+
+ /* Theme
+-------------------------------------------------- */
+
 :root {
   --gap: 24px;
   --content-gap: 40px;
@@ -153,7 +166,7 @@ img {
 }
 .nav a {
   display: block;
-  line-height: var(--header-height);
+  line-height: 60px;
 }
 .logo,
 .menu {
@@ -169,6 +182,10 @@ img {
   list-style: none;
   word-break: keep-all;
   overflow-x: auto;
+  pointer-events: none;
+}
+.menu > * {
+  pointer-events: auto;
 }
 .menu li + li {
   margin-left: var(--gap);
@@ -176,11 +193,29 @@ img {
 .menu a {
   font-size: 16px;
 }
+
+.menu:hover .fade-hover {
+  opacity: 0.4;
+  transition: all 0.2s ease-in-out;
+}
+
+.menu:hover .fade-hover:hover {
+  opacity: 1.0;
+}
+
 /* Main
 -------------------------------------------------- */
 .main {
   position: relative;
-  min-height: calc(100vh - var(--header-height) - var(--footer-height));
+  min-height: calc(80vh - var(--header-height) - var(--footer-height));
+  max-width: calc(var(--main-width) + var(--gap) * 2);
+  margin-left: auto;
+  margin-right: auto;
+  padding: var(--gap);
+}
+.main-fix-footer {
+  position: relative;
+  min-height: calc(100vh - 0 - var(--footer-height));
   max-width: calc(var(--main-width) + var(--gap) * 2);
   margin-left: auto;
   margin-right: auto;
@@ -211,6 +246,7 @@ img {
   padding-left: 18px;
   padding-right: 16px;
 }
+
 /* Post entry
 -------------------------------------------------- */
 .first-entry {
@@ -290,6 +326,21 @@ img {
   font-size: 40px;
   transform: translateX(-2px);
 }
+
+.header-image {
+  width: 100%;
+  /* height:100%; */
+  height: 250px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.bg2 {
+  filter: brightness(3) contrast(0.5);
+}
+
 .post-meta {
   color: var(--secondary);
   font-size: 14px;
@@ -490,6 +541,13 @@ img {
 .post-tags a:hover {
   background: var(--border);
 }
+
+.caption-text {
+  text-align: center;
+  font-style: italic;
+  font-size: smaller;
+}
+
 /* Footer
 -------------------------------------------------- */
 .footer {
@@ -501,6 +559,7 @@ img {
   font-size: 12px;
   text-align: center;
   line-height: 24px;
+
 }
 .footer span {
   margin-left: 1px;
@@ -522,7 +581,13 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80%;
+  height: 100%;
   font-size: 160px;
   font-weight: 700;
+}
+
+
+.large-figure {
+  width: 100%;
+  height: 200px;
 }
