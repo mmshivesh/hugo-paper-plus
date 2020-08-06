@@ -20,6 +20,7 @@ Paper Plus, a fork of Paper theme that builds on the original [Paper](https://gi
 [params]
     email = <Your Email> (Shown in the footer as a "Contact Me" link)
     github = <Link to your github> (Adds a top bar menu item linking to your GitHub)
+    darkDefault = <true | false> (Use Dark mode by default if the browser doesn't support Automatic Appearances)
     siteAuthor = <Site Author> (Name to show on the footer without showing anything on posts)
     mainTitle = "Recent Posts" (Title to show on the main root page instead of repeating the website name)
     serifTitles = <true | false> (Setting to true will use serif titles instead of sans-serif titles. Default serif font is Playfair. Place the font under `static/fonts/PlayfairDisplay-Bold.ttf`)
