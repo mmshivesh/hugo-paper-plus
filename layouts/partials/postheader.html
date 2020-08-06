@@ -34,15 +34,22 @@
     {{- end }}
     <!-- Script -->
     <script>
-      function setTheme() {
-          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.body.classList.add('dark');
-            document.getElementsByClassName("header-image")[0].classList.remove("bg2");
-            
-          }
+
+      function setThemeDarkDefault() {
+        document.body.classList.add('dark');
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+          document.body.classList.remove('dark');
+          document.getElementsByClassName("header-image")[0].classList.add("bg2");
         }
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-        if (event.matches) {
+      }
+      function setThemeLightDefault() {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.body.classList.add('dark');
+          document.getElementsByClassName("header-image")[0].classList.remove("bg2");
+        }
+      }
+       window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (e.matches) {
           document.body.classList.add('dark');
           document.getElementsByClassName("header-image")[0].classList.remove("bg2");
         } else {
@@ -54,9 +61,15 @@
     </script>
   </head>
   <body class="{{ if eq .Kind `page` }}single{{ else }}list{{ if .IsHome }} home{{ end }}{{ end }}">
-    <script>
-      setTheme();
-    </script>
+    {{ if .Site.Params.darkDefault }}
+      <script>
+        setThemeDarkDefault();
+      </script>
+    {{ else }}
+      <script>
+        setThemeLightDefault();
+      </script>
+    {{ end }}
     {{ if .Params.header }}
     <div class="header-image" style="background-image: url('{{ with .Params.header }}{{ . }}{{ end }}');">
       {{end}}
